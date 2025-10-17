@@ -1,0 +1,2369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduExam Pro | Online Examination System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(rgba(67, 97, 238, 0.9), rgba(63, 55, 201, 0.9)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .modal-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .login-options a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .btn-login {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-login:hover {
+            background-color: var(--secondary);
+        }
+        
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            padding: 30px 0;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        .user-details h3 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .user-details p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .dashboard-stats {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .stat-badge {
+            background: var(--light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .stat-badge i {
+            color: var(--primary);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--light);
+            color: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        /* Exam List */
+        .exam-list {
+            margin-top: 20px;
+        }
+        
+        .exam-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            transition: background-color 0.2s ease;
+        }
+        
+        .exam-item:hover {
+            background-color: var(--light);
+        }
+        
+        .exam-item:last-child {
+            border-bottom: none;
+        }
+        
+        .exam-info h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .exam-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .exam-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-upcoming {
+            background-color: rgba(248, 150, 30, 0.2);
+            color: var(--warning);
+        }
+        
+        .status-completed {
+            background-color: rgba(76, 201, 240, 0.2);
+            color: var(--success);
+        }
+        
+        /* Side Dashboard */
+        .side-dashboard {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: white;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            transition: left 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .side-dashboard.active {
+            left: 0;
+        }
+        
+        .dashboard-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 998;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dashboard-toggle i {
+            font-size: 1.5rem;
+        }
+        
+        .side-dashboard-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .side-dashboard-logo {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .side-dashboard-nav {
+            list-style: none;
+        }
+        
+        .side-dashboard-nav li {
+            margin-bottom: 10px;
+        }
+        
+        .side-dashboard-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .side-dashboard-nav a:hover, .side-dashboard-nav a.active {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+        
+        .side-dashboard-nav i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Exam Interface */
+        .exam-interface {
+            display: none;
+            padding: 30px 0;
+        }
+        
+        .exam-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .timer {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        .timer.warning {
+            background-color: var(--warning);
+            animation: pulse 1s infinite;
+        }
+        
+        .timer.danger {
+            background-color: var(--danger);
+            animation: pulse 0.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .question-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+        
+        .question-number {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .options-list {
+            list-style: none;
+        }
+        
+        .option-item {
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option-item:hover {
+            background-color: var(--light);
+        }
+        
+        .option-item.selected {
+            background-color: rgba(67, 97, 238, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .exam-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .exam-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        /* Results Section */
+        .results-summary {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+        
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0% 75%, var(--light-gray) 75% 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        
+        .score-inner {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .data-table th, .data-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .data-table th {
+            background-color: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-right: 5px;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-edit {
+            background-color: rgba(76, 201, 240, 0.2);
+            color: var(--success);
+        }
+        
+        .btn-edit:hover {
+            background-color: rgba(76, 201, 240, 0.4);
+        }
+        
+        .btn-delete {
+            background-color: rgba(247, 37, 133, 0.2);
+            color: var(--danger);
+        }
+        
+        .btn-delete:hover {
+            background-color: rgba(247, 37, 133, 0.4);
+        }
+        
+        /* About and Contact Sections */
+        .about, .contact {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .about-content, .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image, .contact-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img, .contact-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .contact-form {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .dashboard-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .exam-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .about-content, .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .side-dashboard {
+                width: 250px;
+                left: -250px;
+            }
+            
+            .exam-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .exam-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Side Dashboard -->
+    <div class="side-dashboard" id="sideDashboard">
+        <div class="side-dashboard-header">
+            <div class="side-dashboard-logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>EduExam Pro</h3>
+        </div>
+        <ul class="side-dashboard-nav">
+            <li><a href="#" id="sideUserDashboardBtn"><i class="fas fa-tachometer-alt"></i> User Dashboard</a></li>
+            <li><a href="#" id="sideAdminDashboardBtn"><i class="fas fa-user-shield"></i> Admin Dashboard</a></li>
+            <li><a href="#" id="sideLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+    
+    <div class="dashboard-toggle" id="dashboardToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>EduExam Pro</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Advanced Online Examination System</h1>
+            <p>Take your exams anytime, anywhere with our secure and user-friendly platform. Designed for both students and administrators with powerful features.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" id="userLoginBtn">
+                    <i class="fas fa-user"></i> Student Login
+                </button>
+                <button class="btn btn-outline" id="adminLoginBtn">
+                    <i class="fas fa-user-shield"></i> Admin Login
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features</h2>
+                <p>Our platform offers a comprehensive set of tools for both students and administrators</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Timed Exams</h3>
+                    <p>Set time limits for exams with automatic submission when time expires.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Result Analytics</h3>
+                    <p>Detailed performance analysis with graphical representations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Platform</h3>
+                    <p>Advanced security measures to prevent cheating and ensure exam integrity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <p>Access your exams from any device - desktop, tablet, or mobile.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Question Banks</h3>
+                    <p>Large pool of questions with randomization for unique exam experiences.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Notifications</h3>
+                    <p>Get alerts for upcoming exams, results, and important announcements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About EduExam Pro</h2>
+                <p>Learn more about our mission and vision</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Transforming Education Through Technology</h3>
+                    <p>EduExam Pro is a comprehensive online examination platform designed to streamline the assessment process for educational institutions and organizations. Our system provides a secure, reliable, and user-friendly environment for conducting exams remotely.</p>
+                    <p>Founded in 2020, we have served over 500 institutions and facilitated more than 1 million examinations. Our platform is continuously updated with the latest security features and assessment methodologies to ensure the highest standards of evaluation.</p>
+                    <p>We believe in making quality assessment accessible to everyone, regardless of geographical location or physical limitations. Our team of educators, developers, and security experts work tirelessly to deliver an exceptional examination experience.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="About EduExam Pro">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Get in touch with our team</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>We'd Love to Hear From You</h3>
+                    <p>Whether you have questions about features, trials, pricing, or anything else, our team is ready to answer all your questions.</p>
+                    <div style="margin-top: 30px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <i class="fas fa-map-marker-alt" style="color: var(--primary); margin-right: 15px; font-size: 1.2rem;"></i>
+                            <span>123 Education Street, Learning City, LC 12345</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <i class="fas fa-phone" style="color: var(--primary); margin-right: 15px; font-size: 1.2rem;"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <i class="fas fa-envelope" style="color: var(--primary); margin-right: 15px; font-size: 1.2rem;"></i>
+                            <span>info@eduexampro.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your Email</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Enter subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" rows="5" placeholder="Enter your message"></textarea>
+                        </div>
+                        <button type="submit" class="btn-login">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Login Modal -->
+    <div class="modal" id="userLoginModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Student Login</h2>
+            <form id="userLoginForm">
+                <div class="form-group">
+                    <label for="userEmail">Email Address</label>
+                    <input type="email" id="userEmail" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPassword">Password</label>
+                    <input type="password" id="userPassword" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <div class="login-options">
+                    <div>
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px;">
+                Don't have an account? <a href="#" id="signUpLink" style="color: var(--primary);">Sign up here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div class="modal" id="signUpModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Student Sign Up</h2>
+            <form id="signUpForm">
+                <div class="form-group">
+                    <label for="signUpName">Full Name</label>
+                    <input type="text" id="signUpName" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpEmail">Email Address</label>
+                    <input type="email" id="signUpEmail" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpPassword">Password</label>
+                    <input type="password" id="signUpPassword" class="form-control" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signUpConfirmPassword" class="form-control" placeholder="Confirm your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpDepartment">Department</label>
+                    <select id="signUpDepartment" class="form-control" required>
+                        <option value="">Select Department</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Biology">Biology</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Business">Business</option>
+                        <option value="Arts">Arts</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-login">Sign Up</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px;">
+                Already have an account? <a href="#" id="loginLink" style="color: var(--primary);">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsername">Username</label>
+                    <input type="text" id="adminUsername" class="form-control" placeholder="Enter admin username" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" class="form-control" placeholder="Enter admin password" required>
+                </div>
+                <div class="login-options">
+                    <div>
+                        <input type="checkbox" id="rememberAdmin">
+                        <label for="rememberAdmin">Remember me</label>
+                    </div>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class="modal" id="addUserModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Add New User</h2>
+            <form id="addUserForm">
+                <div class="form-group">
+                    <label for="newUserName">Full Name</label>
+                    <input type="text" id="newUserName" class="form-control" placeholder="Enter full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="newUserEmail">Email Address</label>
+                    <input type="email" id="newUserEmail" class="form-control" placeholder="Enter email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="newUserPassword">Password</label>
+                    <input type="password" id="newUserPassword" class="form-control" placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                    <label for="newUserRole">Role</label>
+                    <select id="newUserRole" class="form-control" required>
+                        <option value="">Select Role</option>
+                        <option value="student">Student</option>
+                        <option value="teacher">Teacher</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-login">Add User</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create Exam Modal -->
+    <div class="modal" id="createExamModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Create New Exam</h2>
+            <form id="createExamForm">
+                <div class="form-group">
+                    <label for="examName">Exam Name</label>
+                    <input type="text" id="examName" class="form-control" placeholder="Enter exam name" required>
+                </div>
+                <div class="form-group">
+                    <label for="examDuration">Duration (minutes)</label>
+                    <input type="number" id="examDuration" class="form-control" placeholder="Enter duration in minutes" required>
+                </div>
+                <div class="form-group">
+                    <label for="examQuestions">Number of Questions</label>
+                    <input type="number" id="examQuestions" class="form-control" placeholder="Enter number of questions" required>
+                </div>
+                <div class="form-group">
+                    <label for="examDescription">Description</label>
+                    <textarea id="examDescription" class="form-control" rows="3" placeholder="Enter exam description"></textarea>
+                </div>
+                <button type="submit" class="btn-login">Create Exam</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- User Dashboard -->
+    <section class="dashboard container" id="userDashboard">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">JS</div>
+                <div class="user-details">
+                    <h3 id="userFullName">John Smith</h3>
+                    <p id="userDetails">Student ID: STU2023001 | Computer Science</p>
+                </div>
+            </div>
+            <div class="dashboard-stats">
+                <div class="stat-badge">
+                    <i class="fas fa-book"></i> <span id="examsTaken">0</span> Exams Taken
+                </div>
+                <div class="stat-badge">
+                    <i class="fas fa-chart-line"></i> <span id="averageScore">0</span>% Average
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">Available Exams</h3>
+                    <div class="card-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                </div>
+                <div class="exam-list" id="availableExamsList">
+                    <!-- Available exams will be dynamically populated -->
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">My Exam History</h3>
+                    <div class="card-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                </div>
+                <div class="exam-list" id="examHistoryList">
+                    <!-- Exam history will be dynamically populated -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exam Interface -->
+    <section class="exam-interface container" id="examInterface">
+        <div class="exam-header">
+            <div>
+                <h2 id="examTitle">Mathematics Practice Test</h2>
+                <p id="examDescription">Answer all questions before time runs out</p>
+            </div>
+            <div class="timer" id="examTimer">45:00</div>
+        </div>
+
+        <div class="question-container">
+            <div class="question-number">Question <span id="currentQuestionNumber">1</span> of <span id="totalQuestions">10</span></div>
+            <div class="question-text" id="questionText">What is the value of π (pi) rounded to two decimal places?</div>
+            <ul class="options-list" id="optionsList">
+                <li class="option-item">3.14</li>
+                <li class="option-item">3.16</li>
+                <li class="option-item">3.12</li>
+                <li class="option-item">3.18</li>
+            </ul>
+        </div>
+
+        <div class="exam-navigation">
+            <button class="btn btn-outline" id="prevQuestion">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <div>
+                <button class="btn btn-primary" id="submitExam">
+                    <i class="fas fa-paper-plane"></i> Submit Exam
+                </button>
+                <button class="btn btn-primary" id="nextQuestion">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard -->
+    <section class="dashboard admin-dashboard container" id="adminDashboard">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <div class="user-avatar">A</div>
+                <div class="user-details">
+                    <h3>Administrator</h3>
+                    <p>System Administrator | Full Access</p>
+                </div>
+            </div>
+            <div class="dashboard-stats">
+                <div class="stat-badge">
+                    <i class="fas fa-cog"></i> Admin Panel
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="card-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-value" id="totalStudents">0</div>
+                <div class="stat-label">Total Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="card-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-value" id="activeExams">0</div>
+                <div class="stat-label">Active Exams</div>
+            </div>
+            <div class="stat-card">
+                <div class="card-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-value" id="examsCompleted">0</div>
+                <div class="stat-label">Exams Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="stat-value" id="averageScoreAdmin">0</div>
+                <div class="stat-label">Average Score</div>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">User Management</h3>
+                <button class="btn btn-primary" id="addUserBtn">
+                    <i class="fas fa-plus"></i> Add User
+                </button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Enrolled Exams</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- Users will be dynamically populated -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="card-header">
+                <h3 class="card-title">Exam Management</h3>
+                <button class="btn btn-primary" id="createExamBtn">
+                    <i class="fas fa-plus"></i> Create Exam
+                </button>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Exam ID</th>
+                        <th>Exam Name</th>
+                        <th>Duration</th>
+                        <th>Questions</th>
+                        <th>Enrolled</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="examsTableBody">
+                    <!-- Exams will be dynamically populated -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>EduExam Pro</h3>
+                    <p>Advanced online examination system for educational institutions and organizations. Secure, reliable, and user-friendly.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education Street, Learning City</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@eduexampro.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 EduExam Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Storage (In a real app, this would be a database)
+        let users = [
+            { id: 1, name: "John Smith", email: "john@example.com", password: "password", role: "student", studentId: "STU2023001", department: "Computer Science" },
+            { id: 2, name: "Emma Johnson", email: "emma@example.com", password: "password", role: "student", studentId: "STU2023002", department: "Mathematics" },
+            { id: 3, name: "Michael Brown", email: "michael@example.com", password: "password", role: "student", studentId: "STU2023003", department: "Physics" },
+            { id: 4, name: "Administrator", email: "admin@eduexampro.com", password: "admin", role: "admin" }
+        ];
+
+        let exams = [
+            { id: 1, name: "Mathematics Practice Test", duration: 45, questions: 5, enrolled: 245, status: "active", description: "Basic mathematics concepts assessment" },
+            { id: 2, name: "Science Quiz", duration: 30, questions: 5, enrolled: 198, status: "active", description: "General science knowledge test" },
+            { id: 3, name: "Programming Fundamentals", duration: 60, questions: 5, enrolled: 156, status: "draft", description: "Basic programming concepts assessment" }
+        ];
+
+        let examResults = [];
+
+        // DOM Elements
+        const userLoginBtn = document.getElementById('userLoginBtn');
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        const userLoginModal = document.getElementById('userLoginModal');
+        const adminLoginModal = document.getElementById('adminLoginModal');
+        const signUpModal = document.getElementById('signUpModal');
+        const addUserModal = document.getElementById('addUserModal');
+        const createExamModal = document.getElementById('createExamModal');
+        const userLoginForm = document.getElementById('userLoginForm');
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const signUpForm = document.getElementById('signUpForm');
+        const addUserForm = document.getElementById('addUserForm');
+        const createExamForm = document.getElementById('createExamForm');
+        const userDashboard = document.getElementById('userDashboard');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const examInterface = document.getElementById('examInterface');
+        const sideDashboard = document.getElementById('sideDashboard');
+        const dashboardToggle = document.getElementById('dashboardToggle');
+        const sideUserDashboardBtn = document.getElementById('sideUserDashboardBtn');
+        const sideAdminDashboardBtn = document.getElementById('sideAdminDashboardBtn');
+        const sideLogoutBtn = document.getElementById('sideLogoutBtn');
+        const closeModalButtons = document.querySelectorAll('.close-modal');
+        const examTimer = document.getElementById('examTimer');
+        const submitExam = document.getElementById('submitExam');
+        const prevQuestion = document.getElementById('prevQuestion');
+        const nextQuestion = document.getElementById('nextQuestion');
+        const addUserBtn = document.getElementById('addUserBtn');
+        const createExamBtn = document.getElementById('createExamBtn');
+        const availableExamsList = document.getElementById('availableExamsList');
+        const examHistoryList = document.getElementById('examHistoryList');
+        const usersTableBody = document.getElementById('usersTableBody');
+        const examsTableBody = document.getElementById('examsTableBody');
+        const signUpLink = document.getElementById('signUpLink');
+        const loginLink = document.getElementById('loginLink');
+        
+        // User info elements
+        const userAvatar = document.getElementById('userAvatar');
+        const userFullName = document.getElementById('userFullName');
+        const userDetails = document.getElementById('userDetails');
+        const examsTaken = document.getElementById('examsTaken');
+        const averageScore = document.getElementById('averageScore');
+        
+        // Admin stats elements
+        const totalStudents = document.getElementById('totalStudents');
+        const activeExams = document.getElementById('activeExams');
+        const examsCompleted = document.getElementById('examsCompleted');
+        const averageScoreAdmin = document.getElementById('averageScoreAdmin');
+        
+        let currentUser = null;
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let timerInterval;
+        let currentExam = '';
+        let timeLeft = 0;
+        
+        // Exam questions data
+        const examQuestions = {
+            math: [
+                {
+                    id: 1,
+                    text: "What is the value of π (pi) rounded to two decimal places?",
+                    options: ["3.14", "3.16", "3.12", "3.18"],
+                    correct: 0
+                },
+                {
+                    id: 2,
+                    text: "Which of the following is a prime number?",
+                    options: ["1", "4", "9", "17"],
+                    correct: 3
+                },
+                {
+                    id: 3,
+                    text: "What is the square root of 144?",
+                    options: ["10", "11", "12", "13"],
+                    correct: 2
+                },
+                {
+                    id: 4,
+                    text: "Solve for x: 2x + 5 = 15",
+                    options: ["5", "10", "7.5", "2.5"],
+                    correct: 0
+                },
+                {
+                    id: 5,
+                    text: "What is the area of a circle with radius 7?",
+                    options: ["49π", "14π", "28π", "7π"],
+                    correct: 0
+                }
+            ],
+            science: [
+                {
+                    id: 1,
+                    text: "What is the chemical symbol for gold?",
+                    options: ["Go", "Gd", "Au", "Ag"],
+                    correct: 2
+                },
+                {
+                    id: 2,
+                    text: "Which planet is known as the Red Planet?",
+                    options: ["Venus", "Mars", "Jupiter", "Saturn"],
+                    correct: 1
+                },
+                {
+                    id: 3,
+                    text: "What is the hardest natural substance on Earth?",
+                    options: ["Gold", "Iron", "Diamond", "Platinum"],
+                    correct: 2
+                },
+                {
+                    id: 4,
+                    text: "What is the main gas found in the Earth's atmosphere?",
+                    options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"],
+                    correct: 2
+                },
+                {
+                    id: 5,
+                    text: "What is the speed of light?",
+                    options: ["299,792,458 m/s", "150,000,000 m/s", "1,080,000,000 km/h", "300,000 km/s"],
+                    correct: 0
+                }
+            ],
+            programming: [
+                {
+                    id: 1,
+                    text: "What does HTML stand for?",
+                    options: ["Hyper Text Markup Language", "High Tech Modern Language", "Hyper Transfer Markup Language", "Home Tool Markup Language"],
+                    correct: 0
+                },
+                {
+                    id: 2,
+                    text: "Which language is used for styling web pages?",
+                    options: ["HTML", "Java", "CSS", "Python"],
+                    correct: 2
+                },
+                {
+                    id: 3,
+                    text: "What is the correct way to declare a JavaScript variable?",
+                    options: ["variable x;", "var x;", "v x;", "let x;"],
+                    correct: 3
+                },
+                {
+                    id: 4,
+                    text: "Which symbol is used for single-line comments in JavaScript?",
+                    options: ["//", "/*", "#", "--"],
+                    correct: 0
+                },
+                {
+                    id: 5,
+                    text: "What does CSS stand for?",
+                    options: ["Computer Style Sheets", "Creative Style System", "Cascading Style Sheets", "Colorful Style Sheets"],
+                    correct: 2
+                }
+            ]
+        };
+        
+        // Initialize the application
+        function init() {
+            updateAdminStats();
+            renderUsersTable();
+            renderExamsTable();
+        }
+        
+        // Show User Login Modal
+        userLoginBtn.addEventListener('click', () => {
+            userLoginModal.style.display = 'flex';
+        });
+        
+        // Show Admin Login Modal
+        adminLoginBtn.addEventListener('click', () => {
+            adminLoginModal.style.display = 'flex';
+        });
+        
+        // Show Sign Up Modal
+        signUpLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            userLoginModal.style.display = 'none';
+            signUpModal.style.display = 'flex';
+        });
+        
+        // Show Login Modal from Sign Up
+        loginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signUpModal.style.display = 'none';
+            userLoginModal.style.display = 'flex';
+        });
+        
+        // Close Modals
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                userLoginModal.style.display = 'none';
+                adminLoginModal.style.display = 'none';
+                signUpModal.style.display = 'none';
+                addUserModal.style.display = 'none';
+                createExamModal.style.display = 'none';
+            });
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === userLoginModal) {
+                userLoginModal.style.display = 'none';
+            }
+            if (e.target === adminLoginModal) {
+                adminLoginModal.style.display = 'none';
+            }
+            if (e.target === signUpModal) {
+                signUpModal.style.display = 'none';
+            }
+            if (e.target === addUserModal) {
+                addUserModal.style.display = 'none';
+            }
+            if (e.target === createExamModal) {
+                createExamModal.style.display = 'none';
+            }
+        });
+        
+        // Toggle Side Dashboard
+        dashboardToggle.addEventListener('click', () => {
+            sideDashboard.classList.toggle('active');
+        });
+        
+        // Side Dashboard Navigation
+        sideUserDashboardBtn.addEventListener('click', () => {
+            userDashboard.style.display = 'block';
+            adminDashboard.style.display = 'none';
+            examInterface.style.display = 'none';
+            sideDashboard.classList.remove('active');
+            showHomeSections(false);
+        });
+        
+        sideAdminDashboardBtn.addEventListener('click', () => {
+            adminDashboard.style.display = 'block';
+            userDashboard.style.display = 'none';
+            examInterface.style.display = 'none';
+            sideDashboard.classList.remove('active');
+            showHomeSections(false);
+        });
+        
+        sideLogoutBtn.addEventListener('click', () => {
+            userDashboard.style.display = 'none';
+            adminDashboard.style.display = 'none';
+            examInterface.style.display = 'none';
+            showHomeSections(true);
+            sideDashboard.classList.remove('active');
+            currentUser = null;
+            
+            // Clear any active timer
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+        });
+        
+        // User Login
+        userLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('userEmail').value;
+            const password = document.getElementById('userPassword').value;
+            
+            // Find user
+            const user = users.find(u => u.email === email && u.password === password && u.role === 'student');
+            
+            if (user) {
+                currentUser = user;
+                userLoginModal.style.display = 'none';
+                userDashboard.style.display = 'block';
+                showHomeSections(false);
+                updateUserDashboard();
+            } else {
+                alert('Invalid email or password');
+            }
+        });
+        
+        // Sign Up Form
+        signUpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signUpName').value;
+            const email = document.getElementById('signUpEmail').value;
+            const password = document.getElementById('signUpPassword').value;
+            const confirmPassword = document.getElementById('signUpConfirmPassword').value;
+            const department = document.getElementById('signUpDepartment').value;
+            
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Check if email already exists
+            if (users.find(u => u.email === email)) {
+                alert('Email already exists! Please use a different email.');
+                return;
+            }
+            
+            // Generate student ID
+            const studentId = `STU${new Date().getFullYear()}${String(users.filter(u => u.role === 'student').length + 1).padStart(3, '0')}`;
+            
+            // Create new user
+            const newUser = {
+                id: users.length + 1,
+                name,
+                email,
+                password,
+                role: 'student',
+                studentId,
+                department
+            };
+            
+            users.push(newUser);
+            signUpModal.style.display = 'none';
+            signUpForm.reset();
+            
+            // Update UI
+            renderUsersTable();
+            updateAdminStats();
+            
+            alert('Account created successfully! You can now login with your credentials.');
+        });
+        
+        // Admin Login
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            // Find admin user
+            const admin = users.find(u => u.email === username && u.password === password && u.role === 'admin');
+            
+            if (admin) {
+                currentUser = admin;
+                adminLoginModal.style.display = 'none';
+                adminDashboard.style.display = 'block';
+                showHomeSections(false);
+                updateAdminStats();
+            } else {
+                alert('Invalid username or password');
+            }
+        });
+        
+        // Add User Form
+        addUserForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('newUserName').value;
+            const email = document.getElementById('newUserEmail').value;
+            const password = document.getElementById('newUserPassword').value;
+            const role = document.getElementById('newUserRole').value;
+            
+            // Generate student ID if role is student
+            const studentId = role === 'student' ? `STU${new Date().getFullYear()}${String(users.filter(u => u.role === 'student').length + 1).padStart(3, '0')}` : '';
+            
+            // Create new user
+            const newUser = {
+                id: users.length + 1,
+                name,
+                email,
+                password,
+                role,
+                studentId,
+                department: role === 'student' ? 'General Studies' : ''
+            };
+            
+            users.push(newUser);
+            addUserModal.style.display = 'none';
+            addUserForm.reset();
+            
+            // Update UI
+            renderUsersTable();
+            updateAdminStats();
+            
+            alert('User added successfully!');
+        });
+        
+        // Create Exam Form
+        createExamForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('examName').value;
+            const duration = parseInt(document.getElementById('examDuration').value);
+            const questions = parseInt(document.getElementById('examQuestions').value);
+            const description = document.getElementById('examDescription').value;
+            
+            // Create new exam
+            const newExam = {
+                id: exams.length + 1,
+                name,
+                duration,
+                questions,
+                enrolled: 0,
+                status: 'active',
+                description
+            };
+            
+            exams.push(newExam);
+            createExamModal.style.display = 'none';
+            createExamForm.reset();
+            
+            // Update UI
+            renderExamsTable();
+            updateAdminStats();
+            
+            alert('Exam created successfully!');
+        });
+        
+        // Show Add User Modal
+        addUserBtn.addEventListener('click', () => {
+            addUserModal.style.display = 'flex';
+        });
+        
+        // Show Create Exam Modal
+        createExamBtn.addEventListener('click', () => {
+            createExamModal.style.display = 'flex';
+        });
+        
+        // Update User Dashboard
+        function updateUserDashboard() {
+            if (!currentUser) return;
+            
+            // Update user info
+            userAvatar.textContent = currentUser.name.split(' ').map(n => n[0]).join('');
+            userFullName.textContent = currentUser.name;
+            userDetails.textContent = `Student ID: ${currentUser.studentId} | ${currentUser.department}`;
+            
+            // Calculate user stats
+            const userResults = examResults.filter(r => r.userId === currentUser.id);
+            const examsTakenCount = userResults.length;
+            const avgScore = examsTakenCount > 0 ? 
+                Math.round(userResults.reduce((sum, r) => sum + r.score, 0) / examsTakenCount) : 0;
+            
+            examsTaken.textContent = examsTakenCount;
+            averageScore.textContent = avgScore;
+            
+            // Render available exams
+            renderAvailableExams();
+            
+            // Render exam history
+            renderExamHistory();
+        }
+        
+        // Render Available Exams
+        function renderAvailableExams() {
+            availableExamsList.innerHTML = '';
+            
+            exams.forEach(exam => {
+                const examItem = document.createElement('div');
+                examItem.className = 'exam-item';
+                
+                const examInfo = document.createElement('div');
+                examInfo.className = 'exam-info';
+                
+                const examName = document.createElement('h4');
+                examName.textContent = exam.name;
+                
+                const examMeta = document.createElement('div');
+                examMeta.className = 'exam-meta';
+                
+                const duration = document.createElement('span');
+                duration.innerHTML = `<i class="far fa-clock"></i> ${exam.duration} minutes`;
+                
+                const questions = document.createElement('span');
+                questions.textContent = `${exam.questions} Questions`;
+                
+                examMeta.appendChild(duration);
+                examMeta.appendChild(questions);
+                
+                examInfo.appendChild(examName);
+                examInfo.appendChild(examMeta);
+                
+                const startButton = document.createElement('button');
+                startButton.className = 'btn btn-primary start-exam-btn';
+                startButton.setAttribute('data-exam', exam.id);
+                startButton.textContent = 'Start Exam';
+                startButton.addEventListener('click', function() {
+                    startExam(exam.id);
+                });
+                
+                examItem.appendChild(examInfo);
+                examItem.appendChild(startButton);
+                
+                availableExamsList.appendChild(examItem);
+            });
+        }
+        
+        // Render Exam History
+        function renderExamHistory() {
+            examHistoryList.innerHTML = '';
+            
+            const userResults = examResults.filter(r => r.userId === currentUser.id);
+            
+            if (userResults.length === 0) {
+                const noHistory = document.createElement('div');
+                noHistory.className = 'exam-item';
+                noHistory.textContent = 'No exam history available';
+                examHistoryList.appendChild(noHistory);
+                return;
+            }
+            
+            userResults.forEach(result => {
+                const exam = exams.find(e => e.id === result.examId);
+                if (!exam) return;
+                
+                const examItem = document.createElement('div');
+                examItem.className = 'exam-item';
+                
+                const examInfo = document.createElement('div');
+                examInfo.className = 'exam-info';
+                
+                const examName = document.createElement('h4');
+                examName.textContent = exam.name;
+                
+                const examMeta = document.createElement('div');
+                examMeta.className = 'exam-meta';
+                
+                const date = document.createElement('span');
+                date.innerHTML = `<i class="far fa-calendar"></i> ${new Date(result.date).toLocaleDateString()}`;
+                
+                const score = document.createElement('span');
+                score.textContent = `Score: ${result.score}/${exam.questions} (${Math.round(result.score/exam.questions*100)}%)`;
+                
+                examMeta.appendChild(date);
+                examMeta.appendChild(score);
+                
+                examInfo.appendChild(examName);
+                examInfo.appendChild(examMeta);
+                
+                const status = document.createElement('span');
+                status.className = 'exam-status status-completed';
+                status.textContent = 'Completed';
+                
+                examItem.appendChild(examInfo);
+                examItem.appendChild(status);
+                
+                examHistoryList.appendChild(examItem);
+            });
+        }
+        
+        // Render Users Table
+        function renderUsersTable() {
+            usersTableBody.innerHTML = '';
+            
+            const studentUsers = users.filter(u => u.role === 'student');
+            
+            studentUsers.forEach(user => {
+                const userResults = examResults.filter(r => r.userId === user.id);
+                const enrolledExams = userResults.length;
+                
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${user.studentId}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${enrolledExams}</td>
+                    <td>Active</td>
+                    <td>
+                        <button class="action-btn btn-edit" data-user-id="${user.id}">Edit</button>
+                        <button class="action-btn btn-delete" data-user-id="${user.id}">Delete</button>
+                    </td>
+                `;
+                
+                usersTableBody.appendChild(row);
+            });
+            
+            // Add event listeners to edit and delete buttons
+            document.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-user-id'));
+                    alert(`Edit functionality for user ID: ${userId} would be implemented here`);
+                });
+            });
+            
+            document.querySelectorAll('.btn-delete').forEach(button => {
+                button.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-user-id'));
+                    if (confirm('Are you sure you want to delete this user?')) {
+                        users = users.filter(u => u.id !== userId);
+                        renderUsersTable();
+                        updateAdminStats();
+                        alert('User deleted successfully!');
+                    }
+                });
+            });
+        }
+        
+        // Render Exams Table
+        function renderExamsTable() {
+            examsTableBody.innerHTML = '';
+            
+            exams.forEach(exam => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>EXM${String(exam.id).padStart(7, '0')}</td>
+                    <td>${exam.name}</td>
+                    <td>${exam.duration} minutes</td>
+                    <td>${exam.questions}</td>
+                    <td>${exam.enrolled}</td>
+                    <td>${exam.status.charAt(0).toUpperCase() + exam.status.slice(1)}</td>
+                    <td>
+                        <button class="action-btn btn-edit" data-exam-id="${exam.id}">Edit</button>
+                        <button class="action-btn btn-delete" data-exam-id="${exam.id}">Delete</button>
+                    </td>
+                `;
+                
+                examsTableBody.appendChild(row);
+            });
+            
+            // Add event listeners to edit and delete buttons
+            document.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', function() {
+                    const examId = parseInt(this.getAttribute('data-exam-id'));
+                    alert(`Edit functionality for exam ID: ${examId} would be implemented here`);
+                });
+            });
+            
+            document.querySelectorAll('.btn-delete').forEach(button => {
+                button.addEventListener('click', function() {
+                    const examId = parseInt(this.getAttribute('data-exam-id'));
+                    if (confirm('Are you sure you want to delete this exam?')) {
+                        exams = exams.filter(e => e.id !== examId);
+                        renderExamsTable();
+                        updateAdminStats();
+                        alert('Exam deleted successfully!');
+                    }
+                });
+            });
+        }
+        
+        // Update Admin Stats
+        function updateAdminStats() {
+            const studentCount = users.filter(u => u.role === 'student').length;
+            const activeExamCount = exams.filter(e => e.status === 'active').length;
+            const completedExamCount = examResults.length;
+            
+            const avgScore = completedExamCount > 0 ? 
+                Math.round(examResults.reduce((sum, r) => sum + (r.score / exams.find(e => e.id === r.examId)?.questions * 100), 0) / completedExamCount) : 0;
+            
+            totalStudents.textContent = studentCount;
+            activeExams.textContent = activeExamCount;
+            examsCompleted.textContent = completedExamCount;
+            averageScoreAdmin.textContent = avgScore;
+        }
+        
+        // Start Exam
+        function startExam(examId) {
+            if (!currentUser) return;
+            
+            const exam = exams.find(e => e.id === examId);
+            if (!exam) return;
+            
+            userDashboard.style.display = 'none';
+            examInterface.style.display = 'block';
+            currentQuestion = 0;
+            
+            // Determine which question set to use based on exam name
+            let examType = 'math';
+            if (exam.name.includes('Science')) examType = 'science';
+            if (exam.name.includes('Programming')) examType = 'programming';
+            
+            userAnswers = new Array(examQuestions[examType].length).fill(null);
+            currentExam = examType;
+            
+            // Set exam title and description
+            const examTitle = document.getElementById('examTitle');
+            const examDescription = document.getElementById('examDescription');
+            
+            examTitle.textContent = exam.name;
+            examDescription.textContent = exam.description;
+            timeLeft = exam.duration * 60; // Convert minutes to seconds
+            
+            // Load first question
+            loadQuestion(currentQuestion);
+            
+            // Start timer
+            updateTimer();
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimer();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert('Time is up! Your exam has been submitted.');
+                    submitExam.click();
+                }
+            }, 1000);
+        }
+        
+        // Update Timer
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            examTimer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when time is running out
+            if (timeLeft < 300) { // 5 minutes
+                examTimer.className = 'timer danger';
+            } else if (timeLeft < 600) { // 10 minutes
+                examTimer.className = 'timer warning';
+            } else {
+                examTimer.className = 'timer';
+            }
+        }
+        
+        // Load Question
+        function loadQuestion(questionIndex) {
+            const questions = examQuestions[currentExam];
+            const question = questions[questionIndex];
+            const questionNumber = document.getElementById('currentQuestionNumber');
+            const totalQuestions = document.getElementById('totalQuestions');
+            const questionText = document.getElementById('questionText');
+            const optionsList = document.getElementById('optionsList');
+            
+            questionNumber.textContent = questionIndex + 1;
+            totalQuestions.textContent = questions.length;
+            questionText.textContent = question.text;
+            
+            // Clear previous options
+            optionsList.innerHTML = '';
+            
+            // Add new options
+            question.options.forEach((option, index) => {
+                const li = document.createElement('li');
+                li.className = 'option-item';
+                if (userAnswers[questionIndex] === index) {
+                    li.classList.add('selected');
+                }
+                li.textContent = option;
+                li.addEventListener('click', () => {
+                    // Remove selected class from all options
+                    document.querySelectorAll('.option-item').forEach(opt => opt.classList.remove('selected'));
+                    // Add selected class to clicked option
+                    li.classList.add('selected');
+                    // Save user's answer
+                    userAnswers[questionIndex] = index;
+                });
+                optionsList.appendChild(li);
+            });
+            
+            // Update navigation buttons
+            prevQuestion.disabled = questionIndex === 0;
+            nextQuestion.textContent = questionIndex === questions.length - 1 ? 'Finish' : 'Next <i class="fas fa-arrow-right"></i>';
+        }
+        
+        // Previous Question
+        prevQuestion.addEventListener('click', () => {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+            }
+        });
+        
+        // Next Question
+        nextQuestion.addEventListener('click', () => {
+            const questions = examQuestions[currentExam];
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+            } else {
+                // Last question - show confirmation for submission
+                submitExam.click();
+            }
+        });
+        
+        // Submit Exam
+        submitExam.addEventListener('click', () => {
+            if (confirm('Are you sure you want to submit your exam?')) {
+                // Calculate score
+                let score = 0;
+                const questions = examQuestions[currentExam];
+                for (let i = 0; i < questions.length; i++) {
+                    if (userAnswers[i] === questions[i].correct) {
+                        score++;
+                    }
+                }
+                
+                // Find the exam ID based on the current exam type
+                let examId = 1; // Default to math exam
+                if (currentExam === 'science') examId = 2;
+                if (currentExam === 'programming') examId = 3;
+                
+                // Save exam result
+                const examResult = {
+                    id: examResults.length + 1,
+                    userId: currentUser.id,
+                    examId: examId,
+                    score: score,
+                    totalQuestions: questions.length,
+                    date: new Date().toISOString()
+                };
+                
+                examResults.push(examResult);
+                
+                // Update exam enrollment count
+                const exam = exams.find(e => e.id === examId);
+                if (exam) {
+                    exam.enrolled++;
+                }
+                
+                // Clear timer
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+                
+                // Show results and return to dashboard
+                examInterface.style.display = 'none';
+                userDashboard.style.display = 'block';
+                
+                // Update dashboard with new data
+                updateUserDashboard();
+                updateAdminStats();
+                
+                alert(`Exam submitted! Your score: ${score}/${questions.length} (${Math.round(score/questions.length*100)}%)`);
+            }
+        });
+        
+        // Show/Hide Home Sections
+        function showHomeSections(show) {
+            document.querySelector('.hero').style.display = show ? 'block' : 'none';
+            document.querySelector('.features').style.display = show ? 'block' : 'none';
+            document.querySelector('.about').style.display = show ? 'block' : 'none';
+            document.querySelector('.contact').style.display = show ? 'block' : 'none';
+            document.querySelector('footer').style.display = show ? 'block' : 'none';
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Initialize the application
+        init();
+    </script>
+</body>
+</html
